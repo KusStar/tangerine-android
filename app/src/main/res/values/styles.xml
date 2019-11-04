@@ -1,13 +1,20 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:statusBarColor">#FFFFFF</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="colorOnPrimary">@color/colorAccent</item>
+        <item name="colorOnSecondary">#FFFFFF</item>
+        <item name="colorButtonNormal">#212121</item>
+        <item name="colorBackgroundFloating">#212121</item>
+        <item name="colorOnBackground">#212121</item>
+
 
         <!-- enable window content transitions -->
         <item name="android:windowActivityTransitions">true</item>
@@ -20,11 +27,19 @@
         </item>
 
     </style>
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+
+    <style name="BottomSheet" parent="@style/Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/modal_shape</item>
+    </style>
+
+    <style name="BaseBottomSheetDialog" parent="@style/Theme.Design.Light.BottomSheetDialog">
+<!--        <item name="android:windowIsFloating">false</item>-->
+        <item name="bottomSheetStyle">@style/BottomSheet</item>
+    </style>
+
+    <style name="ModalTheme" parent="BaseBottomSheetDialog" />
 </resources>
