@@ -5,16 +5,14 @@
     android:id="@+id/card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
     android:clickable="true"
+    android:foreground="?android:attr/selectableItemBackground"
     android:orientation="vertical"
     app:cardElevation="2dp"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    android:foreground="?android:attr/selectableItemBackground"
-    >
+    app:layout_constraintTop_toTopOf="parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -39,16 +37,18 @@
 
         <TextView
             android:id="@+id/textView"
-            android:layout_width="300dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
+            android:clickable="false"
+            android:contextClickable="false"
+            android:editable="false"
+            android:filterTouchesWhenObscured="false"
+            android:hapticFeedbackEnabled="false"
             android:inputType="textMultiLine|textImeMultiLine"
             android:padding="8dp"
             android:text="@android:string/defaultMsisdnAlphaTag"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/imageView"
-            app:layout_constraintHorizontal_bias="0.575"
             app:layout_constraintStart_toEndOf="@+id/checkBox"
             app:layout_constraintTop_toTopOf="parent" />
 
