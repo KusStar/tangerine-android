@@ -8,4 +8,7 @@
     <dimen name="nav_header_vertical_spacing">8dp</dimen>
     <dimen name="nav_header_height">176dp</dimen>
     <dimen name="divider">8dp</dimen>
+
+    <dimen name="modal_radius">16dp</dimen>
+    <dimen name="modal_top_padding">8dp</dimen>
 </resources>
