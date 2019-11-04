@@ -37,16 +37,21 @@ class TaskListAdapter internal constructor(
                     imageView.setImageResource(type)
                 }
                 this.checkBox.setOnClickListener {
-                    tasks[index].run {
-                        val newTask = Task(name, type, !checked, Date().time)
-                        viewModel!!.delete(tasks[index])
-                        viewModel.insert(newTask)
-                    }
+                    updateTask(tasks[index])
                 }
                 this.setOnClickListener{
-                    viewModel!!.delete(tasks[index])
+                    //                    viewModel!!.delete(tasks[index])
+                    updateTask(tasks[index])
+
                 }
             }
+        }
+    }
+    private fun updateTask(task:Task) {
+        task.run {
+            val newTask = Task(name, type, !checked, Date().time)
+            viewModel!!.delete(task)
+            viewModel.insert(newTask)
         }
     }
     internal fun setTasks(tasks: List<Task>) {
