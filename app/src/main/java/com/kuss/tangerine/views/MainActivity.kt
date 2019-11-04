@@ -11,13 +11,10 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kuss.tangerine.R
-import com.kuss.tangerine.db.Task
 import com.kuss.tangerine.adapter.TaskListAdapter
 import com.kuss.tangerine.model.TaskViewModel
-import com.kuss.tangerine.util.constants.DefaultText
 import kotlinx.android.synthetic.main.activity_main.*
-import java.util.*
-import kotlin.random.Random
+
 
 class MainActivity : AppCompatActivity(){
     private lateinit var taskViewModel: TaskViewModel
@@ -42,15 +39,13 @@ class MainActivity : AppCompatActivity(){
             tasks?.let { adapter.setTasks(it) }
         })
         fab.setOnClickListener {
-            val text: String = DefaultText().text
-            val task = Task(
-                text,
-                type = R.mipmap.bug,
-                checked = Random.nextBoolean(),
-                date = Date().time
-            )
-            taskViewModel.insert(task)
+            onModal()
         }
+    }
+
+    private fun onModal() {
+        val modalBottomSheet = Modal(viewModel = taskViewModel)
+        modalBottomSheet.show(supportFragmentManager, Modal.TAG)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
