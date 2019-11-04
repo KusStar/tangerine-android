@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity(){
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.itemAnimator = DefaultItemAnimator()
+        recyclerView.addItemDecoration(TaskItemDecoration(this))
         recyclerView.adapter = adapter
 
         taskViewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
