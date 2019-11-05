@@ -1,6 +1,6 @@
 # Tangerine
 
-Under Contruction
+Under Construction
 
 A todo list app written in kotlin.
 
