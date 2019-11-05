@@ -32,7 +32,7 @@ class Modal(val viewModel: TaskViewModel) : BottomSheetDialogFragment() {
 
         save.setOnClickListener {
             val text = editText.text.toString()
-            val type = TaskType().getType(text)
+            val type = TaskType.getType(text)
 
             if(text.isNotEmpty()) {
                 val task = Task(
