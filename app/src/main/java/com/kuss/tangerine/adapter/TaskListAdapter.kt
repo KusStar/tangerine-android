@@ -8,8 +8,10 @@ import com.kuss.tangerine.R
 import com.kuss.tangerine.db.Task
 import kotlinx.android.synthetic.main.card.view.*
 import android.content.Context
+import android.graphics.Paint
 import com.kuss.tangerine.model.TaskViewModel
 import java.util.*
+
 
 
 class TaskListAdapter internal constructor(
@@ -34,6 +36,11 @@ class TaskListAdapter internal constructor(
                 tasks[index].run {
                     textView.text = name
                     checkBox.isChecked = checked
+                    if (checked == true) {
+                        textView.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                    } else {
+                        textView.paintFlags = Paint.ANTI_ALIAS_FLAG
+                    }
                     imageView.setImageResource(type)
                 }
                 this.checkBox.setOnClickListener {
