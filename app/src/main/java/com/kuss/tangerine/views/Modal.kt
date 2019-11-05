@@ -10,10 +10,9 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kuss.tangerine.R
 import com.kuss.tangerine.db.Task
 import com.kuss.tangerine.model.TaskViewModel
-import com.kuss.tangerine.util.constants.TaskType
+import com.kuss.tangerine.util.helper.TaskType
 import kotlinx.android.synthetic.main.modal.*
 import java.util.*
-import kotlin.random.Random
 
 class Modal(val viewModel: TaskViewModel) : BottomSheetDialogFragment() {
     override fun onCreateView(
@@ -23,13 +22,12 @@ class Modal(val viewModel: TaskViewModel) : BottomSheetDialogFragment() {
     ): View? = inflater.inflate(R.layout.modal, container, false)
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-
         setStyle(DialogFragment.STYLE_NORMAL, R.style.ModalTheme)
         return super.onCreateDialog(savedInstanceState)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
-
+        editText.requestFocus()
         save.setOnClickListener {
             val text = editText.text.toString()
             val type = TaskType.getType(text)
