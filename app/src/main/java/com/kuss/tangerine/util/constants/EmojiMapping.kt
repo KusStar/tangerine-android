@@ -2,7 +2,7 @@ package com.kuss.tangerine.util.constants
 
 import com.kuss.tangerine.R
 
-class TaskIconMapping {
+class EmojiMapping {
     companion object {
         val ids = arrayOf(
             R.mipmap.art,
