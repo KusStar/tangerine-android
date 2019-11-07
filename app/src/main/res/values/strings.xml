@@ -3,5 +3,6 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_todo">New Todo</string>
     <string name="todo">What do you want to do?</string>
-    <string name="imageViewDesc">Just a image</string>
+    <string name="image_view_desc">Just a image</string>
+    <string name="save">Save</string>
 </resources>

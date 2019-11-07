@@ -40,43 +40,45 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_weight="0">
 
                 <ImageButton
-                    android:id="@+id/imageButton4"
+                    android:id="@+id/change_emoji"
                     android:layout_width="wrap_content"
                     android:layout_height="24dp"
                     android:layout_weight="0"
                     android:background="@android:color/transparent"
+                    android:contentDescription="@string/image_view_desc"
                     android:tint="@color/colorAccent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/imageButton5"
+                    app:layout_constraintEnd_toStartOf="@+id/place"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.666"
-                    app:srcCompat="@drawable/ic_menu" />
+                    app:srcCompat="@drawable/ic_emoji" />
 
                 <ImageButton
-                    android:id="@+id/imageButton5"
+                    android:id="@+id/place"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_weight="0"
                     android:background="@android:color/transparent"
+                    android:contentDescription="@string/image_view_desc"
                     android:tint="@color/colorAccent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/imageButton4"
+                    app:layout_constraintStart_toEndOf="@+id/change_emoji"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.666"
-                    app:srcCompat="@drawable/ic_star" />
+                    app:srcCompat="@drawable/ic_add_location" />
 
                 <Button
                     android:id="@+id/save"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Save"
+                    android:text="@string/save"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
