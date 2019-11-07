@@ -11,11 +11,11 @@ import android.content.Context
 import android.graphics.Paint
 import com.kuss.tangerine.model.TaskViewModel
 import java.util.*
-
+import android.view.View
 
 
 class TaskListAdapter internal constructor(
-    context: Context,
+    private val context: Context,
     private val taskViewModel: TaskViewModel?
 ) : RecyclerView.Adapter<TaskListAdapter.TaskViewHolder>() {
 
@@ -23,36 +23,73 @@ class TaskListAdapter internal constructor(
     private var tasks = emptyList<Task>()
     private val viewModel: TaskViewModel? = taskViewModel
 
-    inner class TaskViewHolder(val card: CardView) : RecyclerView.ViewHolder(card)
+    companion object{
+        val TYPE_FOOTER = 1//添加Footer
+        val TYPE_HEADER = 2//添加Header
+        val TYPE_NORMAL = 0//两者都没有添加
+        var showHeader = false
+        var showFooter = false
+    }
+    fun setHeaderView(){
+        showHeader = true
+        notifyItemInserted(0)
+    }
+
+    fun setFooterView(){
+        showFooter = true
+        notifyItemInserted(itemCount - 1)
+    }
+
+    inner class TaskViewHolder(val card: View) : RecyclerView.ViewHolder(card)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
+        if (showHeader && viewType == TYPE_HEADER) {
+            val view = inflater.inflate(R.layout.footer, parent, false)
+            return TaskViewHolder(view)
+        }
+        if (showFooter  && viewType == TYPE_FOOTER && tasks.isNotEmpty()) {
+            val view = inflater.inflate(R.layout.footer, parent, false)
+            return TaskViewHolder(view)
+        }
         val card = inflater.inflate(R.layout.card, parent, false) as CardView
         return TaskViewHolder(card)
     }
 
-    override fun onBindViewHolder(holder: TaskViewHolder, index: Int) {
-        holder.run {
-            card.run {
-                tasks[index].run {
-                    textView.text = name
-                    checkBox.isChecked = checked
-                    if (checked == true) {
-                        textView.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-                    } else {
-                        textView.paintFlags = Paint.ANTI_ALIAS_FLAG
+    override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
+        if (getItemViewType(position) == TYPE_HEADER) return
+        else if (getItemViewType(position) == TYPE_FOOTER) return
+        else {
+            val index = if(showHeader == false) position else position - 1
+            holder.run {
+                card.run {
+                    tasks[index].run {
+                        textView.text = name
+                        checkBox.isChecked = checked
+                        if (checked) {
+                            textView.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                        } else {
+                            textView.paintFlags = Paint.ANTI_ALIAS_FLAG
+                        }
+                        imageView.setImageResource(type)
                     }
-                    imageView.setImageResource(type)
-                }
-                this.checkBox.setOnClickListener {
-                    updateTask(tasks[index])
-                }
-                this.setOnClickListener{
-                    //                    viewModel!!.delete(tasks[index])
-                    updateTask(tasks[index])
+                    this.checkBox.setOnClickListener {
+                        updateTask(tasks[index])
+                    }
+                    this.setOnClickListener {
+                        deleteTask(tasks[index])
+                    }
 
                 }
             }
         }
+
+    }
+
+    private fun deleteTask(task: Task) {
+        viewModel!!.delete(task)
+    }
+    fun insert(task:Task) {
+        viewModel!!.insert(task)
     }
     private fun updateTask(task:Task) {
         task.run {
@@ -66,5 +103,23 @@ class TaskListAdapter internal constructor(
         notifyDataSetChanged()
     }
 
-    override fun getItemCount() = tasks.size
+    override fun getItemCount(): Int {
+        if(tasks.size < 1) return 0
+        else if (showHeader == true && showFooter == true)
+            return tasks.size + 2
+        else if(showHeader == false && showFooter == false)
+            return tasks.size
+        else
+            return tasks.size + 1
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        if (showHeader == false && showFooter == false)
+            return TYPE_NORMAL
+        if(position == 0)
+            return TYPE_HEADER
+        if(position == itemCount-1)
+            return TYPE_FOOTER
+        return TYPE_NORMAL
+    }
 }

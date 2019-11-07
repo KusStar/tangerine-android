@@ -2,12 +2,13 @@ package com.kuss.tangerine.views
 
 
 import android.os.Bundle
+import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kuss.tangerine.R
@@ -16,8 +17,14 @@ import com.kuss.tangerine.model.TaskViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 
+
+
+
+
 class MainActivity : AppCompatActivity(){
     private lateinit var taskViewModel: TaskViewModel
+    private lateinit var adapter: TaskListAdapter
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,12 +34,14 @@ class MainActivity : AppCompatActivity(){
         taskViewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
-        val adapter = TaskListAdapter(this, taskViewModel)
+        adapter = TaskListAdapter(this, taskViewModel)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.itemAnimator = DefaultItemAnimator()
         recyclerView.addItemDecoration(TaskItemDecoration(this))
         recyclerView.adapter = adapter
+
+        adapter.setHeaderView()
+        adapter.setFooterView()
 
         taskViewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
         taskViewModel.allTasks.observe(this, Observer { tasks ->
@@ -43,12 +52,10 @@ class MainActivity : AppCompatActivity(){
             onModal()
         }
     }
-
     private fun onModal() {
-        val modalBottomSheet = Modal(viewModel = taskViewModel)
+        val modalBottomSheet = Modal(adapter)
         modalBottomSheet.show(supportFragmentManager, Modal.TAG)
     }
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
