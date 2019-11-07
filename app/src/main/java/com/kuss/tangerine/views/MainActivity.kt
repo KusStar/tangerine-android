@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity(){
         taskViewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
         taskViewModel.allTasks.observe(this, Observer { tasks ->
             tasks?.let { adapter.setTasks(it) }
+            recyclerView.scheduleLayoutAnimation()
         })
         fab.setOnClickListener {
             onModal()
