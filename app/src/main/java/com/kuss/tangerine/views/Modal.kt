@@ -2,19 +2,31 @@ package com.kuss.tangerine.views
 
 import android.app.Dialog
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.kuss.tangerine.R
+import com.kuss.tangerine.adapter.TaskListAdapter
 import com.kuss.tangerine.db.Task
-import com.kuss.tangerine.model.TaskViewModel
-import com.kuss.tangerine.util.helper.TaskType
+import com.kuss.tangerine.util.constants.EmojiMapping
+import com.kuss.tangerine.util.helper.EmojiHelper
 import kotlinx.android.synthetic.main.modal.*
 import java.util.*
 
-class Modal(val viewModel: TaskViewModel) : BottomSheetDialogFragment() {
+
+
+class Modal(
+    private val adapter: TaskListAdapter
+) : BottomSheetDialogFragment() {
+
+    private var selectedEmojiIndex = 0
+    private var emojiId = EmojiMapping.ids[selectedEmojiIndex]
+    private var changeEmojiByText = true
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -28,25 +40,43 @@ class Modal(val viewModel: TaskViewModel) : BottomSheetDialogFragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         editText.requestFocus()
+
+        editText.addTextChangedListener(object :TextWatcher{
+            override fun afterTextChanged(p0: Editable?) { }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+
+            override fun onTextChanged(str: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                if(str.toString().isEmpty()) {
+                    changeEmojiByText = true
+                }
+                if(changeEmojiByText) {
+                    emojiId = EmojiHelper.getType(str.toString())
+                    emoji_id.setImageResource(emojiId)
+                }
+            }
+        })
+        change_emoji.setOnClickListener {
+            emojiId = EmojiHelper.getType("")
+            emoji_id.setImageResource(emojiId)
+            changeEmojiByText = false
+        }
         save.setOnClickListener {
             val text = editText.text.toString()
-            val type = TaskType.getType(text)
-
             if(text.isNotEmpty()) {
                 val task = Task(
                     text,
-                    type,
+                    emojiId,
                     checked = false,
                     date = Date().time
                 )
-                viewModel.insert(task)
+                adapter.insert(task)
                 dismiss()
             }
-
         }
         super.onActivityCreated(savedInstanceState)
     }
     companion object {
         const val TAG = "ModalBottomSheet"
+
     }
 }
