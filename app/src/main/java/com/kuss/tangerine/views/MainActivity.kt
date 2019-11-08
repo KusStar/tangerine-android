@@ -2,23 +2,20 @@ package com.kuss.tangerine.views
 
 
 import android.os.Bundle
-import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kuss.tangerine.R
 import com.kuss.tangerine.adapter.TaskListAdapter
+import com.kuss.tangerine.adapter.DoneTaskListAdapter
+import com.kuss.tangerine.db.Task
 import com.kuss.tangerine.model.TaskViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-
-
-
-
 
 
 class MainActivity : AppCompatActivity(){
@@ -44,13 +41,30 @@ class MainActivity : AppCompatActivity(){
         adapter.setFooterView()
 
         taskViewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
-        taskViewModel.allTasks.observe(this, Observer { tasks ->
+        taskViewModel.unDoneTasks.observe(this, Observer { tasks ->
             tasks?.let { adapter.setTasks(it) }
             recyclerView.scheduleLayoutAnimation()
         })
+        taskViewModel.doneTasks.observe(this, Observer { tasks ->
+            tasks?.let {
+                updateDoneRecycler(it)
+            }
+
+        })
+
         fab.setOnClickListener {
             onModal()
         }
+    }
+
+    private fun updateDoneRecycler(tasks: List<Task>) {
+            val doneRecyclerView = findViewById<RecyclerView>(R.id.doneTasks_recyclerView)
+            val doneAdapter = DoneTaskListAdapter(this, taskViewModel)
+            doneRecyclerView?.let {drv ->
+                drv.layoutManager = LinearLayoutManager(this)
+                drv.adapter = doneAdapter
+                doneAdapter.setTasks(tasks)
+            }
     }
     private fun onModal() {
         val modalBottomSheet = Modal(adapter)
