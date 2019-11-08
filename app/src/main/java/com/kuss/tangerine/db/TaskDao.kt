@@ -8,7 +8,10 @@ interface TaskDao {
     fun loadAll(): LiveData<List<Task>>
 
     @Query("SELECT * from tasks WHERE checked = 0 ORDER BY date DESC ")
-    fun loadUnfinishedTasks(): LiveData<List<Task>>
+    fun loadUnDoneTasks(): LiveData<List<Task>>
+
+    @Query("SELECT * from tasks WHERE checked = 1 ORDER BY date DESC")
+    fun loadDoneTasks(): LiveData<List<Task>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(task: Task)

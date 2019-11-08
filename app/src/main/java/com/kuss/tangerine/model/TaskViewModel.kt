@@ -14,13 +14,16 @@ import kotlinx.coroutines.launch
 class TaskViewModel(application: Application) : AndroidViewModel(application) {
     // The ViewModel maintains a reference to the repository to get data.
     // LiveData gives us updated words when they change.
-    val allTasks: LiveData<List<Task>>
+    val unDoneTasks: LiveData<List<Task>>
+    val doneTasks: LiveData<List<Task>>
+
     private var repository: TaskRepository? = null
 
     init {
         val taskDao: TaskDao = TaskDataBase.getDatabase(application, viewModelScope).taskDao()
         repository  = TaskRepository(taskDao)
-        allTasks = repository!!.allTasks
+        unDoneTasks = repository!!.unDoneTasks
+        doneTasks = repository!!.doneTasks
     }
     /**
      * The implementation of insert() in the db is completely hidden from the UI.
