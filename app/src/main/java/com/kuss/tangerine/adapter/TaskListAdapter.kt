@@ -44,10 +44,10 @@ class TaskListAdapter internal constructor(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
         if (showHeader && viewType == TYPE_HEADER) {
-            val view = inflater.inflate(R.layout.footer, parent, false)
+            val view = inflater.inflate(R.layout.header, parent, false)
             return TaskViewHolder(view)
         }
-        if (showFooter  && viewType == TYPE_FOOTER && tasks.isNotEmpty()) {
+        if (showFooter  && viewType == TYPE_FOOTER) {
             val view = inflater.inflate(R.layout.footer, parent, false)
             return TaskViewHolder(view)
         }
@@ -75,14 +75,9 @@ class TaskListAdapter internal constructor(
                     this.checkBox.setOnClickListener {
                         updateTask(tasks[index])
                     }
-                    this.setOnClickListener {
-                        deleteTask(tasks[index])
-                    }
-
                 }
             }
         }
-
     }
 
     private fun deleteTask(task: Task) {
@@ -104,8 +99,7 @@ class TaskListAdapter internal constructor(
     }
 
     override fun getItemCount(): Int {
-        if(tasks.size < 1) return 0
-        else if (showHeader == true && showFooter == true)
+        if (showHeader == true && showFooter == true)
             return tasks.size + 2
         else if(showHeader == false && showFooter == false)
             return tasks.size
