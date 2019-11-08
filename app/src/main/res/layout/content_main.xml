@@ -18,7 +18,7 @@
         android:foregroundGravity="center_vertical|center_horizontal"
         android:layoutAnimation="@anim/layout_animation"
         android:paddingLeft="16dp"
-        android:paddingTop="64dp"
+        android:paddingTop="@dimen/recycler_view_padding_top"
         android:paddingRight="16dp"
         android:paddingBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
