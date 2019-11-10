@@ -5,7 +5,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -41,15 +40,14 @@ class MainActivity : AppCompatActivity(){
         adapter.setFooterView()
 
         taskViewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
+
         taskViewModel.unDoneTasks.observe(this, Observer { tasks ->
             tasks?.let { adapter.setTasks(it) }
-            recyclerView.scheduleLayoutAnimation()
         })
         taskViewModel.doneTasks.observe(this, Observer { tasks ->
             tasks?.let {
                 updateDoneRecycler(it)
             }
-
         })
 
         fab.setOnClickListener {
@@ -58,27 +56,23 @@ class MainActivity : AppCompatActivity(){
     }
 
     private fun updateDoneRecycler(tasks: List<Task>) {
-            val doneRecyclerView = findViewById<RecyclerView>(R.id.doneTasks_recyclerView)
-            val doneAdapter = DoneTaskListAdapter(this, taskViewModel)
-            doneRecyclerView?.let {drv ->
-                drv.layoutManager = LinearLayoutManager(this)
-                drv.adapter = doneAdapter
-                doneAdapter.setTasks(tasks)
-            }
+        val doneRecyclerView = findViewById<RecyclerView>(R.id.doneRecyclerView)
+        val doneAdapter = DoneTaskListAdapter(this, taskViewModel)
+        doneRecyclerView?.let {drv ->
+            drv.layoutManager = LinearLayoutManager(this)
+            drv.adapter = doneAdapter
+            doneAdapter.setTasks(tasks)
+        }
     }
     private fun onModal() {
         val modalBottomSheet = Modal(adapter)
         modalBottomSheet.show(supportFragmentManager, Modal.TAG)
     }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         taskViewModel.deleteAll()
         return when (item.itemId) {
             R.id.action_settings -> true
