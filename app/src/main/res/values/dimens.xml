@@ -12,5 +12,5 @@
     <dimen name="modal_radius">16dp</dimen>
     <dimen name="modal_top_padding">8dp</dimen>
 
-    <dimen name="recycler_view_padding_top">48dp</dimen>
+    <dimen name="recycler_view_padding_top">36dp</dimen>
 </resources>
