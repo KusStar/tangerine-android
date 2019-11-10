@@ -28,9 +28,10 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/emoji_id"
+                    android:id="@+id/emojiImageView"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
+                    android:layout_marginLeft="2dp"
                     android:layout_marginRight="10dp"
                     app:srcCompat="@mipmap/tada" />
 
@@ -40,7 +41,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:autoLink="none"
-                    android:autoText="false"
                     android:background="@android:color/transparent"
                     android:hint="@string/todo"
                     android:inputType="textMultiLine"
@@ -57,7 +57,7 @@
                 android:layout_weight="0">
 
                 <ImageButton
-                    android:id="@+id/change_emoji"
+                    android:id="@+id/changeEmojiBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="24dp"
                     android:layout_weight="0"
@@ -81,7 +81,7 @@
                     android:contentDescription="@string/image_view_desc"
                     android:tint="@color/colorAccent"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/change_emoji"
+                    app:layout_constraintStart_toEndOf="@+id/changeEmojiBtn"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.666"
                     app:srcCompat="@drawable/ic_add_location" />

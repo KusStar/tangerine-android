@@ -51,13 +51,13 @@ class Modal(
                 }
                 if(changeEmojiByText) {
                     emojiId = EmojiHelper.getType(str.toString())
-                    emoji_id.setImageResource(emojiId)
+                    emojiImageView.setImageResource(emojiId)
                 }
             }
         })
-        change_emoji.setOnClickListener {
+        changeEmojiBtn.setOnClickListener {
             emojiId = EmojiHelper.getType("")
-            emoji_id.setImageResource(emojiId)
+            emojiImageView.setImageResource(emojiId)
             changeEmojiByText = false
         }
         save.setOnClickListener {
