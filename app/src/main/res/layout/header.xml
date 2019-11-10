@@ -4,14 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="64dp"
     android:layout_gravity="center_vertical"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="48dp"
-        android:text="Your tasks"
+        android:text="@string/header_title"
         android:textSize="24sp"
         android:textColor="@android:color/primary_text_light"
         android:textStyle="bold"
