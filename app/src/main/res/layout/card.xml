@@ -5,14 +5,15 @@
     android:id="@+id/card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
     android:orientation="vertical"
     app:cardElevation="2dp"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
+    app:layout_constraintTop_toTopOf="parent"
+    android:layoutAnimation="@anim/layout_animation"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -24,7 +25,6 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_gravity="center_horizontal|center_vertical"
-            android:autoText="false"
             android:elegantTextHeight="false"
             android:foregroundGravity="center_vertical|center_horizontal"
             android:freezesText="false"
@@ -59,6 +59,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/feat" />
+            app:srcCompat="@mipmap/feat"
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
