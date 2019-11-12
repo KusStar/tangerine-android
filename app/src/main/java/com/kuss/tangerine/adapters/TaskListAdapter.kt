@@ -1,4 +1,4 @@
-package com.kuss.tangerine.adapter
+package com.kuss.tangerine.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

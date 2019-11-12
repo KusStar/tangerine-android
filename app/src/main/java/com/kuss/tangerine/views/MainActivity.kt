@@ -10,8 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.kuss.tangerine.R
-import com.kuss.tangerine.adapter.TaskListAdapter
-import com.kuss.tangerine.adapter.DoneTaskListAdapter
+import com.kuss.tangerine.adapters.TaskListAdapter
+import com.kuss.tangerine.adapters.DoneTaskListAdapter
 import com.kuss.tangerine.db.Task
 import com.kuss.tangerine.model.TaskViewModel
 import kotlinx.android.synthetic.main.activity_main.*
