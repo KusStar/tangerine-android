@@ -76,6 +76,10 @@ class MainActivity : AppCompatActivity(){
         taskViewModel.deleteDoneTasks()
         return when (item.itemId) {
             R.id.action_settings -> true
+            R.id.action_remove_done -> {
+                taskViewModel.deleteDoneTasks()
+                return true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
