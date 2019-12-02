@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity(){
         })
 
         fab.setOnClickListener {
-            onModal()
+            onAddTaskModal()
         }
     }
 
@@ -64,9 +64,10 @@ class MainActivity : AppCompatActivity(){
             doneAdapter.setTasks(tasks)
         }
     }
-    private fun onModal() {
-        val modalBottomSheet = Modal(adapter)
-        modalBottomSheet.show(supportFragmentManager, Modal.TAG)
+
+    private fun onAddTaskModal() {
+        val modalBottomSheet = AddTaskModal(adapter)
+        modalBottomSheet.show(supportFragmentManager, AddTaskModal.TAG)
     }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)

@@ -14,13 +14,13 @@ import com.kuss.tangerine.adapters.TaskListAdapter
 import com.kuss.tangerine.db.Task
 import com.kuss.tangerine.util.constants.EmojiMapping
 import com.kuss.tangerine.util.helper.EmojiHelper
-import kotlinx.android.synthetic.main.modal.*
+import kotlinx.android.synthetic.main.add_task_modal.*
 import java.util.*
 import com.kuss.tangerine.adapters.SelectEmojiAdapter
 import android.view.MotionEvent
 
 
-class Modal(
+class AddTaskModal(
     private val adapter: TaskListAdapter
 ) : BottomSheetDialogFragment() {
 
@@ -31,25 +31,23 @@ class Modal(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.modal, container, false)
-
+    ): View? = inflater.inflate(R.layout.add_task_modal, container, false)
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         setStyle(DialogFragment.STYLE_NORMAL, R.style.ModalTheme)
         return super.onCreateDialog(savedInstanceState)
     }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         editText.requestFocus()
-
-        editText.addTextChangedListener(object :TextWatcher{
-            override fun afterTextChanged(p0: Editable?) { }
+        editText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {}
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
             override fun onTextChanged(str: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if(str.toString().isEmpty()) {
+                if (str.toString().isEmpty()) {
                     changeEmojiByText = true
                 }
-                if(changeEmojiByText) {
+                if (changeEmojiByText) {
                     emojiId = EmojiHelper.getType(str.toString())
                     emojiImageView.setImageResource(emojiId)
                 }
@@ -74,7 +72,6 @@ class Modal(
                     }
                 })
                 val adapter = SelectEmojiAdapter(it, EmojiMapping.ids)
-
                 selectEmojiListView.setOnItemClickListener { _, _, i, _ ->
                     val id = EmojiMapping.ids[i]
                     emojiImageView.setImageResource(id)
@@ -83,13 +80,11 @@ class Modal(
                     changeEmojiByText = false
                 }
                 selectEmojiListView.adapter = adapter
-
             }
-
         }
         save.setOnClickListener {
             val text = editText.text.toString()
-            if(text.isNotEmpty()) {
+            if (text.isNotEmpty()) {
                 val task = Task(
                     text,
                     emojiId,
@@ -102,8 +97,8 @@ class Modal(
         }
         super.onActivityCreated(savedInstanceState)
     }
+
     companion object {
         const val TAG = "ModalBottomSheet"
-
     }
 }
