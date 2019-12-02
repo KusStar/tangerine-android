@@ -17,17 +17,6 @@
         <item name="colorBackgroundFloating">#212121</item>
         <item name="colorOnBackground">#212121</item>
 
-
-        <!-- enable window content transitions -->
-        <item name="android:windowActivityTransitions">true</item>
-
-        <item name="android:windowSharedElementEnterTransition">
-            @transition/fab
-        </item>
-        <item name="android:windowSharedElementExitTransition" >
-            @transition/fab
-        </item>
-
         <item name="android:windowSoftInputMode">adjustPan</item>
     </style>
 
