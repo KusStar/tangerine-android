@@ -1,6 +1,5 @@
 package com.kuss.tangerine.views
 
-
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
@@ -17,10 +16,9 @@ import com.kuss.tangerine.model.TaskViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity(){
+class MainActivity : AppCompatActivity() {
     private lateinit var taskViewModel: TaskViewModel
     private lateinit var adapter: TaskListAdapter
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,7 +56,7 @@ class MainActivity : AppCompatActivity(){
     private fun updateDoneRecycler(tasks: List<Task>) {
         val doneRecyclerView = findViewById<RecyclerView>(R.id.doneRecyclerView)
         val doneAdapter = DoneTaskListAdapter(this, taskViewModel)
-        doneRecyclerView?.let {drv ->
+        doneRecyclerView?.let { drv ->
             drv.layoutManager = LinearLayoutManager(this)
             drv.adapter = doneAdapter
             doneAdapter.setTasks(tasks)
@@ -69,12 +67,13 @@ class MainActivity : AppCompatActivity(){
         val modalBottomSheet = AddTaskModal(adapter)
         modalBottomSheet.show(supportFragmentManager, AddTaskModal.TAG)
     }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        taskViewModel.deleteDoneTasks()
         return when (item.itemId) {
             R.id.action_settings -> true
             R.id.action_remove_done -> {

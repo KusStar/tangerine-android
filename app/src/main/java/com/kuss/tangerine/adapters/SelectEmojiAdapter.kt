@@ -7,18 +7,18 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import com.kuss.tangerine.R
 import com.kuss.tangerine.util.constants.EmojiMapping
-import kotlinx.android.synthetic.main.card.view.imageView
-import kotlinx.android.synthetic.main.card.view.textView
+import kotlinx.android.synthetic.main.card.view.*
 
 class SelectEmojiAdapter internal constructor(
     context: Context,
     private val list: Array<Int>
-): BaseAdapter() {
+) : BaseAdapter() {
 
     private val inflater = LayoutInflater.from(context)
     override fun getCount(): Int {
         return list.size
     }
+
     override fun getItem(position: Int): Any {
         return list[position]
     }
@@ -26,6 +26,7 @@ class SelectEmojiAdapter internal constructor(
     override fun getItemId(position: Int): Long {
         return position.toLong()
     }
+
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val id = list[position]
         val emojiView = inflater.inflate(R.layout.select_emoji_item, null)
